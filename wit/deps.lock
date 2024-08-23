@@ -1,0 +1,4 @@
+[streams]
+url = "https://github.com/WebAssembly/wasi-io/archive/v0.2.1.tar.gz"
+sha256 = "2a74bd811adc46b5a0f19827ddbde89870e52b17615f4d0873f06fd977250caf"
+sha512 = "94624f00c66e66203592cee820f80b1ba91ecdb71f682c154f25eaf71f8d8954197dcb64503bc21e72ed5e812af7eae876df47b7eb727b02db3a74a7ce0aefca"

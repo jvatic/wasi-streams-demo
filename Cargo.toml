@@ -1,0 +1,27 @@
+[workspace]
+members = ["guest-rust", "host-wasmtime"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+homepage = "https://github.com/jvatic/wasi-streams-demo"
+categories = ["wit", "wasi", "wasm", "wasmtime"]
+license = "BSD 3-Clause License"
+repository = "https://github.com/jvatic/wasi-streams-demo"
+authors = ["Jesse Stuart <rust@jessestuart.ca>"]
+
+[patch.crates-io]
+tokio = { git = "https://github.com/tokio-rs/tokio.git" } # tokio::io::simplex isn't published yet'
+
+[workspace.dependencies]
+anyhow = "1.0.86"
+futures-lite = "2.3.0"
+serde = "1.0.209"
+serde_json = "1.0.127"
+tokio = { version = "1.39" }
+wasi = "0.13"
+# see https://github.com/yoshuawuyts/wasm-http-tools/pull/5
+wasi-async-runtime = { version = "0.1.3", git = "https://github.com/jvatic/wasm-http-tools.git", rev = "fdcf419eb4b4339377bf99170b393e6c330ccf8c" }
+wasmtime = { version = "24.0" }
+wasmtime-wasi = { version = "24.0" }
+wit-bindgen = "0.30"

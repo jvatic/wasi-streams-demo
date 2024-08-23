@@ -1,0 +1,32 @@
+package test:example;
+
+interface guest-contract {
+    use wasi:io/streams@0.2.1.{input-stream, output-stream};
+
+    variant message {
+        initialize(s64),
+        add(s64),
+        sub(s64),
+        print-result,
+    }
+
+    /// process messages through a bi-directional stream
+    input-output-stream: func(inputs: input-stream, outputs: output-stream) -> result<s64, string>;
+
+    /// process messages through a sync fn
+    process-messages: func(messages: list<message>) -> s64;
+}
+
+interface host-contract {
+    resource arithmetic {
+        constructor(num: s64);
+        add: func(other: s64) -> option<s64>;
+        sub: func(other: s64) -> option<s64>;
+        get: func() -> s64;
+    }
+}
+
+world my-world {
+    import host-contract;
+    export guest-contract;
+}
