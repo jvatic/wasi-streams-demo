@@ -756,8 +756,10 @@ dependencies = [
  "serde",
  "serde_json",
  "tokio",
+ "wasi-preview1-component-adapter-provider",
  "wasmtime",
  "wasmtime-wasi",
+ "wit-component",
 ]
 
 [[package]]
@@ -1639,6 +1641,12 @@ dependencies = [
  "slab",
  "wasi 0.13.2+wasi-0.2.1",
 ]
+
+[[package]]
+name = "wasi-preview1-component-adapter-provider"
+version = "23.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f91d3d13afef569b9fc80cfbb807c87c16ef49bd3ac1a93285ea6a264b600d2d"
 
 [[package]]
 name = "wasm-bindgen"

@@ -1,10 +1,13 @@
-use std::time::Duration;
+use std::{env::args, time::Duration};
 
 use anyhow::{Context, Result};
 
 use exports::test::example::guest_contract::Message;
 use test::example::host_contract::{self, Host, HostArithmetic};
 use tokio::io::{simplex, AsyncBufReadExt, AsyncWriteExt, BufReader};
+use wasi_preview1_component_adapter_provider::{
+    WASI_SNAPSHOT_PREVIEW1_ADAPTER_NAME, WASI_SNAPSHOT_PREVIEW1_REACTOR_ADAPTER,
+};
 use wasmtime::{
     self,
     component::{Component, Linker, Resource},
@@ -148,8 +151,22 @@ async fn main() -> Result<()> {
 
     let mut store = Store::new(&engine, host_state);
 
-    let wasm_module_path = "component.wasm";
-    let component = Component::from_file(&engine, wasm_module_path)?;
+    let args: Vec<String> = args().collect();
+    let wasm = tokio::fs::read(
+        args.get(1)
+            .expect("must provide path to wasm binary as the first argument"),
+    )
+    .await?;
+    let wasm = wit_component::ComponentEncoder::default()
+        .module(&wasm)?
+        .adapter(
+            WASI_SNAPSHOT_PREVIEW1_ADAPTER_NAME,
+            WASI_SNAPSHOT_PREVIEW1_REACTOR_ADAPTER,
+        )?
+        .validate(true)
+        .encode()?;
+
+    let component = Component::from_binary(&engine, &wasm)?;
 
     let mut linker = Linker::new(&engine);
     host_contract::add_to_linker(&mut linker, |s| s)?;
