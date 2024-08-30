@@ -122,7 +122,6 @@ async fn main() -> Result<()> {
             host_tx.write_all(&serde_json::to_vec(&line)?).await?;
             host_tx.write("\n".as_bytes()).await?;
             host_tx.flush().await?;
-            tokio::time::sleep(Duration::from_secs(1)).await;
         }
 
         host_tx.shutdown().await?;
