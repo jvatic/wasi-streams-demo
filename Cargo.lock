@@ -1634,7 +1634,6 @@ dependencies = [
 [[package]]
 name = "wasi-async-runtime"
 version = "0.1.3"
-source = "git+https://github.com/jvatic/wasm-http-tools.git?rev=c16e7fe1ebea2730907397335c2c313789d6cdae#c16e7fe1ebea2730907397335c2c313789d6cdae"
 dependencies = [
  "bytes",
  "futures-lite",
